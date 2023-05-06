@@ -12,14 +12,16 @@ const GlobalStyles = createGlobalStyle`
     --sub3-color: #C3EDFF;
     --line-color: #D9D9D9
     --bg-color:#F1F2F3;
+    --text-white-color: #FFFFFF;
+    --text-black-color: #000000;
     --footer-color: #383838;
     /* 기본 글자 크기 */
     --title: 29px;
     --sub-title: 19px;
-    --base1: 17px;
-    --base2: 15px;
-    --sub-base: 13px;
-     }
+    --large: 17px;
+    --base: 15px;
+    --small: 13px;
+    }
 
      *{
         box-sizing: border-box;
