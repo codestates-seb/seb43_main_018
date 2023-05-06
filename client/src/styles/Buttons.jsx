@@ -4,6 +4,7 @@ const Button = styled.button`
 	border: none;
 	width: 100px;
 	height: 50px;
+	padding: 3px;
 	background-color: var(--main-color);
 	color: var(--text-white-color);
 	box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.25),
@@ -11,6 +12,7 @@ const Button = styled.button`
 	border-radius: 10px;
 	font-size: var(--sub-title);
 	font-weight: 700;
+	align-items: center;
 	cursor: pointer;
 	&:hover {
 		background-color: var(--sub3-color);
@@ -41,4 +43,9 @@ const MWarningButton = styled(WarningButton)`
 	border-radius: 5px;
 `;
 
-export { Button, MButton, WarningButton, MWarningButton };
+const MHeaderButton = styled(MButton)`
+	width: 40px;
+	height: 40px;
+`;
+
+export { Button, MButton, WarningButton, MWarningButton, MHeaderButton };
