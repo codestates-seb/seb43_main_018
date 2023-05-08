@@ -52,16 +52,17 @@ const LogoWrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
-	> div {
-		font-size: var(--sub-title);
-		font-weight: 700;
-		letter-spacing: 0.2em;
-	}
 `;
 
 const LogoImage = styled.img`
 	width: 60px;
 	height: 60px;
+`;
+
+const LogoText = styled.div`
+	font-size: var(--sub-title);
+	font-weight: 700;
+	letter-spacing: 0.2em;
 `;
 
 const ButtonWrapper = styled.div`
@@ -77,36 +78,61 @@ const Profile = styled.img`
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
+
+	@media (max-width: 768px) {
+		width: 40px;
+		height: 40px;
+	}
 `;
 
-export default function Header() {
-	const isMobile = useMediaQuery('(max-width: 767px)');
-	const [isLogin, setIsLogin] = useState(false);
+export default function Header({ isLogin, setIsLogin, isOpen, setIsOpen }) {
+	const isMobile = useMediaQuery('(max-width: 768px)');
+
+	const handleLogout = () => {
+		setIsLogin(false);
+		// 지도 페이지로 네비게이트
+	};
+	const toggleSideBar = () => {
+		setIsOpen(!isOpen);
+	};
 	return (
 		<StyledHeader>
 			<HeaderWrapper>
 				<Menu>
-					<MenuIcon />
+					<MenuIcon onClick={toggleSideBar} />
 				</Menu>
 				<LogoWrapper>
 					<LogoImage
 						src={`${process.env.PUBLIC_URL}/assets/logo.png`}
 						alt="로고 이미지"
 					/>
-					{!isMobile && <div>어디에버려</div>}
+					{!isMobile && <LogoText>어디에버려</LogoText>}
 				</LogoWrapper>
 				{!isLogin ? (
 					<ButtonWrapper>
-						<HeaderButton type="button">Sign up</HeaderButton>
-						<HeaderButton type="button">Log in</HeaderButton>
+						<HeaderButton
+							type="button"
+							// 회원가입 페이지로 링크
+						>
+							Sign up
+						</HeaderButton>
+						<HeaderButton
+							type="button"
+							// 로그인 페이지로 링크
+						>
+							Log in
+						</HeaderButton>
 					</ButtonWrapper>
 				) : (
 					<ButtonWrapper>
 						<Profile
+							// 마이페이지로 링크
 							src={`${process.env.PUBLIC_URL}/assets/exprofile.png`}
 							alt="프로필"
 						/>
-						<HeaderButton type="button">Log out</HeaderButton>
+						<HeaderButton type="button" onClick={handleLogout}>
+							Log out
+						</HeaderButton>
 					</ButtonWrapper>
 				)}
 			</HeaderWrapper>
