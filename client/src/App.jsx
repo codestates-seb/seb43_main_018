@@ -16,7 +16,7 @@ function App() {
 				isOpen={isOpen}
 				setIsOpen={setIsOpen}
 			/>
-			<Sidebar isOpen={isOpen} />
+			<Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 		</>
 	);
 }
