@@ -5,6 +5,7 @@ const ProfileWrapper = styled.div`
 	align-items: center;
 	margin-left: 20px;
 	gap: 20px;
+	cursor: pointer;
 `;
 
 const ProfileImage = styled.img`
@@ -30,6 +31,7 @@ const UserEmail = styled.span`
 
 export default function MyProfile() {
 	return (
+		// 마이페이지로 링크
 		<ProfileWrapper>
 			<ProfileImage
 				src={`${process.env.PUBLIC_URL}/assets/exprofile.png`}
