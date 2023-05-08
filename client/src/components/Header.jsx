@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { FiMenu } from 'react-icons/fi';
-import { useState } from 'react';
 import useMediaQuery from '../hooks/useMediaQuery';
 import { HeaderButton } from '../styles/Buttons';
 
@@ -38,10 +37,10 @@ const Menu = styled.button`
 	border: none;
 	background-color: transparent;
 	outline: none;
-	cursor: pointer;
 `;
 
 const MenuIcon = styled(FiMenu)`
+	cursor: pointer;
 	font-size: var(--title);
 `;
 
@@ -78,6 +77,7 @@ const Profile = styled.img`
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
+	cursor: pointer;
 
 	@media (max-width: 768px) {
 		width: 40px;
