@@ -37,11 +37,11 @@ const WarningButton = styled(Button)`
 	}
 `;
 
-const MHeaderButton = styled(Button)`
+const HeaderButton = styled(Button)`
 	@media (max-width: 768px) {
 		width: 40px;
 		height: 40px;
 	}
 `;
 
-export { Button, WarningButton, MHeaderButton };
+export { Button, WarningButton, HeaderButton };
