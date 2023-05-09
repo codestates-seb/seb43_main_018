@@ -2,6 +2,8 @@ import styled, { keyframes } from 'styled-components';
 import { IoClose } from 'react-icons/io5';
 import SidebarList from './SidebarList';
 import MyProfile from './MyProfile';
+import { Z_INDEX_STYLED_SIDEBAR } from '../zIndex';
+import MOBILE_MAX_WIDTH from '../mediaQuery';
 
 const slideInLeft = keyframes`
   from {
@@ -32,11 +34,11 @@ const SidebarWrapper = styled.div`
 	background-color: #ffffff;
 	box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 0px 10px 10px 0px;
-	z-index: 10;
+	z-index: ${Z_INDEX_STYLED_SIDEBAR};
 	animation: ${({ isOpen }) => (isOpen ? slideInLeft : slideOutLeft)} 0.5s
 		ease-in-out forwards;
 
-	@media (max-width: 768px) {
+	@media (max-width: ${MOBILE_MAX_WIDTH}px) {
 		top: 70px;
 	}
 `;

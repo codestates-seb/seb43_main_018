@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import styled from 'styled-components';
 import { Button, WarningButton } from '../styles/Buttons';
+import MOBILE_MAX_WIDTH from '../mediaQuery';
 
 const ModalWrapper = styled.div`
 	position: fixed;
@@ -24,7 +25,7 @@ const ModalContent = styled.div`
 	border-radius: 10px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
-	@media (max-width: 768px) {
+	@media (max-width: ${MOBILE_MAX_WIDTH}px) {
 		width: 300px;
 		height: 150px;
 		border-radius: 5px;
@@ -38,7 +39,7 @@ const ModalMessage = styled.div`
 	align-items: center;
 	line-height: 1.5;
 
-	@media (max-width: 768px) {
+	@media (max-width: ${MOBILE_MAX_WIDTH}px) {
 		margin-top: 30px;
 	}
 
@@ -46,7 +47,7 @@ const ModalMessage = styled.div`
 		font-size: var(--large);
 		font-weight: 600;
 
-		@media (max-width: 768px) {
+		@media (max-width: ${MOBILE_MAX_WIDTH}px) {
 			font-size: var(--base);
 		}
 	}
@@ -58,7 +59,7 @@ const ModalButtonWrapper = styled.div`
 	justify-content: center;
 	gap: 75px;
 
-	@media (max-width: 768px) {
+	@media (max-width: ${MOBILE_MAX_WIDTH}px) {
 		margin-top: 25px;
 		gap: 20px;
 	}

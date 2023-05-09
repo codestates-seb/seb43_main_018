@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { FiMenu } from 'react-icons/fi';
 import useMediaQuery from '../hooks/useMediaQuery';
 import { HeaderButton } from '../styles/Buttons';
+import { Z_INDEX_STYLED_HEADER } from '../zIndex';
+import MOBILE_MAX_WIDTH from '../mediaQuery';
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -15,9 +17,9 @@ const StyledHeader = styled.header`
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 10;
+	z-index: ${Z_INDEX_STYLED_HEADER};
 
-	@media (max-width: 768px) {
+	@media (max-width: ${MOBILE_MAX_WIDTH}px) {
 		height: 70px;
 	}
 `;
@@ -79,14 +81,14 @@ const Profile = styled.img`
 	border-radius: 50px;
 	cursor: pointer;
 
-	@media (max-width: 768px) {
+	@media (max-width: ${MOBILE_MAX_WIDTH}px) {
 		width: 40px;
 		height: 40px;
 	}
 `;
 
 export default function Header({ isLogin, setIsLogin, isOpen, setIsOpen }) {
-	const isMobile = useMediaQuery('(max-width: 768px)');
+	const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
 
 	const handleLogout = () => {
 		setIsLogin(false);
