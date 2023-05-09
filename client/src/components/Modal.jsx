@@ -65,17 +65,17 @@ const ModalButtonWrapper = styled.div`
 	}
 `;
 
-export default function Modal({ message, setIsModalOpen }) {
+export default function Modal({ message, handleConfirm, handleCancel }) {
 	const splitMessage = message.split('<br>');
 
-	const handleConfirm = () => {
-		setIsModalOpen(false);
-		// 확인 버튼 클릭 시 실행할 로직 추가 (각 페이지에서 props 내려주기)
-	};
+	// const handleConfirm = () => {
+	// 	setIsModalOpen(false);
+	// 확인 버튼 클릭 시 실행할 로직 추가 (각 페이지에서 props 내려주기)
+	// };
 
-	const handleCancel = () => {
-		setIsModalOpen(false);
-	};
+	// const handleCancel = () => {
+	// 	setIsModalOpen(false);
+	// };
 	return (
 		<ModalWrapper>
 			<ModalContent>
