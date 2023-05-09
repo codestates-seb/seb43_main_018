@@ -13,7 +13,7 @@ const FooterWrapper = styled.footer`
 	padding: 40px 0;
 `;
 
-const SectionWrapper = styled.div`
+const SectionWrapper = styled.section`
 	color: var(--text-white-color);
 `;
 
@@ -53,9 +53,13 @@ export default function Footer() {
 			<SectionWrapper>
 				<SectionTitle>[서비스 목적과 가치]</SectionTitle>
 				<SectionList>
-					<li>쓰레기통 위치 정보를 제공하여 환경 보호에 기여합니다.</li>
 					<li>
-						사용자들이 더욱 효율적으로 쓰레기 처리를 할 수 있도록 돕습니다.
+						<p>쓰레기통 위치 정보를 제공하여 환경 보호에 기여합니다.</p>
+					</li>
+					<li>
+						<p>
+							사용자들이 더욱 효율적으로 쓰레기 처리를 할 수 있도록 돕습니다.
+						</p>
 					</li>
 				</SectionList>
 			</SectionWrapper>
