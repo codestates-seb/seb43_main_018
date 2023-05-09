@@ -1,52 +1,21 @@
+# 서버 포트 설정
+server:
+  port: 8080
 
+# database 연동 설정
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mydb?createdDatabaseIfNotExist=true&useUnicode=true&characterSetResults=UTF-8&useSSL=true
+    url: jdbc:mysql://localhost:3306/mydb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: 1234
+  thymeleaf:
+    cache: false
+
+  # spring data jpa 설정
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: create
+    open-in-view: false
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-#spring:
-#  output:
-#    ansi:
-#      enabled: ALWAYS
-#
-#      datasource:
-#        driver-class-name: org.h2.Driver
-#        url: jdbc:h2:mem:test
-#        username: sa
-#        password:
-#
-#      h2:
-#        console:
-#          enabled: true
-#          path: /h2
-#      jpa:
-#        database-platform: org.hibernate.dialect.H2Dialect
-#        hibernate:
-#          ddl-auto: auto
-#  config:
-#    use-legacy-processing: true
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#    properties:
-#      hibernate:
-#        format_sql: false
-#        highlight_sql: false
-#        color-codes: false
-#        use_sql_comments: true
-#
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        SQL: debug
-
+    hibernate:
+      ddl-auto: update
