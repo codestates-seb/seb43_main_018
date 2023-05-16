@@ -11,13 +11,13 @@ public class CommentDto {
 	public static class Post {
 		@NotBlank(message = "내용은 공백이 아니어야 합니다.")
 		private String c_content;
+		private long b_id;
 	}
 
 	@Getter
 	@Setter
 	@AllArgsConstructor
 	public static class Patch {
-		@NotBlank(message = "c_id는 공백이 아니어야 합니다.")
 		private long c_id;
 		@NotBlank(message = "내용은 공백이 아니어야 합니다.")
 		private String c_content;
@@ -28,5 +28,6 @@ public class CommentDto {
 	public static class Response {
 		private long c_id;
 		private String c_content;
+		private long b_id;
 	}
 }

@@ -20,7 +20,8 @@ public class Comment extends BaseEntity {
 	private long c_id;
 	@Column(nullable = false)
 	private String c_content;
-
+	@Column(nullable = false)
+	private long b_id;
 	// N : 1(Member) 양방향 매핑
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")
