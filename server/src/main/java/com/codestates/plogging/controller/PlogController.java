@@ -1,5 +1,6 @@
 package com.codestates.plogging.controller;
 
+import com.codestates.exception.ErrorResponse;
 import com.codestates.plogging.dto.PlogDetailDto;
 import com.codestates.plogging.dto.PlogPatchDto;
 import com.codestates.plogging.dto.PlogPostDto;
@@ -10,6 +11,8 @@ import com.codestates.plogging.service.PlogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -82,6 +85,24 @@ public class PlogController {
     public ResponseEntity deletePlog(@PathVariable("plogId") Long plogId) {
         plogService.deletePlog(plogId);
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler
+    public ResponseEntity handleException(MethodArgumentNotValidException e) {
+        // (1)
+        final List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+
+        // (2)
+        List<ErrorResponse.FieldError> errors =
+                fieldErrors.stream()
+                        .map(error -> new ErrorResponse.FieldError(
+                                error.getField(),
+                                error.getRejectedValue(),
+                                error.getDefaultMessage()))
+                        .collect(Collectors.toList());
+
+//		return new ResponseEntity<>(new ErrorResponse(errors), HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(ErrorResponse.of(e.getBindingResult()));
     }
 }
 

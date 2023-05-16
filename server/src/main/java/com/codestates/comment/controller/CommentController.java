@@ -6,20 +6,26 @@ import com.codestates.comment.dto.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.comment.mapper.CommentMapper;
 import com.codestates.comment.service.CommentService;
+import com.codestates.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/comments")
+@CrossOrigin(origins = "*")
 public class CommentController {
 	private CommentMapper mapper;
 	private CommentService commentService;
@@ -32,7 +38,7 @@ public class CommentController {
 	}
 
 	@PostMapping
-	public ResponseEntity postComment(@RequestBody CommentDto.Post postDto) {
+	public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post postDto) {
 
 		//uri 리턴 방식으로 변경
 		Comment comment = commentService.createComment(mapper.commentPostDtoToComment(postDto));
@@ -45,7 +51,7 @@ public class CommentController {
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity patchComment(@RequestBody CommentDto.Patch requestBody,
+	public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch requestBody,
 									   @PathVariable("id") long id) {
 		requestBody.setC_id(id);
 		Comment comment = mapper.commentPatchDtoToComment(requestBody);
@@ -71,5 +77,23 @@ public class CommentController {
 		commentService.deleteComment(id);
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity handleException(MethodArgumentNotValidException e) {
+		// (1)
+		final List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+
+		// (2)
+		List<ErrorResponse.FieldError> errors =
+						fieldErrors.stream()
+										.map(error -> new ErrorResponse.FieldError(
+														error.getField(),
+														error.getRejectedValue(),
+														error.getDefaultMessage()))
+										.collect(Collectors.toList());
+
+//		return new ResponseEntity<>(new ErrorResponse(errors), HttpStatus.BAD_REQUEST);
+		return ResponseEntity.badRequest().body(ErrorResponse.of(e.getBindingResult()));
 	}
 }
