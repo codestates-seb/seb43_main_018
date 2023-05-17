@@ -11,6 +11,7 @@ import useModal from '../hooks/useModal';
 import { getPost, deleteCommunity, postCommunity } from '../api/communityAPI';
 import { URL_POST } from '../routesURL';
 import useInput from '../hooks/useInput';
+import { URL_COMMENT } from '../urls/comments';
 
 function CommunityDetail() {
 	const navigate = useNavigate();
@@ -38,13 +39,13 @@ function CommunityDetail() {
 	// 댓글 삭제 함수
 	const handleConfirmC = () => {
 		closeModalC();
-		deleteCommunity(`/comments/${data.id}`);
+		deleteCommunity(URL_COMMENT.COMMENT_DELETE(data.id));
 		// deleteCommunity(`/read/${data.id}`); // json server
 	};
 
 	function postComment(value) {
 		if (value !== '') {
-			postCommunity(`/comments`, {
+			postCommunity(URL_COMMENT.COMMENT_CREATE, {
 				b_id: data.id,
 				c_contant: value,
 			});
@@ -79,9 +80,11 @@ function CommunityDetail() {
 			>
 				작성
 			</WarningButton>
-			{[1, 1, 1].map((el) => (
-				<CommunityComment key={el} setIsCModalOpen={openModalC} />
-			))}
+			{Array(Math.floor(Math.random() * 100))
+				.fill(undefined)
+				.map((el) => (
+					<CommunityComment key={el} setIsCModalOpen={openModalC} />
+				))}
 			{isOpenModalP && (
 				<Modal
 					message="게시글 및 댓글이 삭제 됩니다.<br>정말 삭제하시겠습니까?"
