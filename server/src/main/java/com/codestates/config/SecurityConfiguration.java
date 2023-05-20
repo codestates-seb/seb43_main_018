@@ -65,7 +65,7 @@ public class SecurityConfiguration{
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable() //CSRF 공격에 대한 설정 비활성화
-                .cors(withDefaults()) //CORS 설정 추가(!!!)
+                .cors(withDefaults()) //CORS 설정 추가
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 생성 x
                 .and()
                 .formLogin().disable() //CSR 방식 로그인을 위한 폼 로그인 비활성화
@@ -103,7 +103,6 @@ public class SecurityConfiguration{
                         .antMatchers(HttpMethod.PUT,"/vote/**").hasRole("USER") // 투표 수정은 유저만 가능
                         .antMatchers(HttpMethod.DELETE,"/vote/**").hasAnyRole("ADMIN","USER") // 투표 삭제는 관리자, 유저만 가능
 
-                        // CORS 설정 추가(!!!!)
                         .anyRequest().permitAll()); // 서버 측으로 들어오는 모든 request 접근 허용
 
         return http.build();
@@ -115,20 +114,17 @@ public class SecurityConfiguration{
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    // CORS 정책 설정(!!!!)
+    // CORS 정책 설정
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://sebmain18.s3-website-ap-southeast-2.amazonaws.com"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.addAllowedHeader("*");
-        configuration.addExposedHeader("Authorization");
-        configuration.addExposedHeader("Refresh");
-        configuration.addExposedHeader("memberId");
-        configuration.setAllowCredentials(false);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "PUT"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("Authorization", "Refresh")); // 허용된 도메인에 대해 노출시킬 헤더 설정
 
+        //UrlBasedCorsConfigurationSource 는 CorsConfigurationSource 인터페이스를 구현한 클래스이다.
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**",corsConfiguration);
         return source;
     }
 
