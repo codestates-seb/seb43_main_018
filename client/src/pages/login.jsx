@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 import HorizontalLine from '../components/HorizonLine';
 import { loginSuccess, loginFailure } from '../store/UserSlice';
 import login from '../api/AuthAPI';
@@ -49,11 +50,19 @@ function Login() {
 
 				axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
-				dispatch(
-					loginSuccess({ email: res.data.email, memberId: res.data.email }),
-				);
+				const decodedToken = jwt.decode(accessToken);
+				const memberId = decodedToken?.memberId;
 
-				navigate(URL_MAP);
+				if (memberId) {
+					dispatch(
+						loginSuccess({ email: data.email, memberId: res.data.memberId }),
+					);
+
+					navigate(URL_MAP);
+				} else {
+					console.error('JWT decoding failed');
+					dispatch(loginFailure());
+				}
 			})
 			.catch((err) => {
 				console.log(err);

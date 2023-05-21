@@ -17,7 +17,7 @@ export default function Header({
 	setIsSidebarOpen,
 	setIsSidebarOpeFirst,
 }) {
-	const dispatch = useDispatch;
+	const dispatch = useDispatch();
 	const isMobile = useMediaQuery();
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const handleLogout = () => {

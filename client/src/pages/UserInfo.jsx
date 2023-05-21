@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { KEY_ACCESS_TOKEN } from '../Constant';
 
 function UserInfo() {
 	const [postList, setPostList] = useState([]);
@@ -16,6 +17,8 @@ function UserInfo() {
 	useEffect(() => {
 		const fetchUserData = async () => {
 			try {
+				const accessToken = localStorage.getItem(KEY_ACCESS_TOKEN);
+				axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 				// 사용자 정보 가져오기
 				const userResponse = await axios.get(
 					`${process.env.REACT_APP_API_URL}/api/members/${memberId}`,

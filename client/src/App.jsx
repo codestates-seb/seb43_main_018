@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
+import { Provider } from 'react-redux';
 import GlobalStyles from './styles/index';
 import MapPage from './pages/mapPage';
 import Login from './pages/login';
@@ -14,6 +15,7 @@ import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import Prepare from './pages/Prepare';
 import NotFound from './pages/NotFound';
+import store from './store/UserSlice';
 import {
 	URL_MAP,
 	URL_LOGIN,
@@ -35,7 +37,7 @@ function App() {
 	const [isSidebarOpeFirst, setIsSidebarOpeFirst] = useState(true);
 
 	return (
-		<>
+		<Provider store={store}>
 			<GlobalStyles />
 			<Header
 				isSidebarOpen={isSidebarOpen}
@@ -63,7 +65,7 @@ function App() {
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 			{!isMobile && <Footer />}
-		</>
+		</Provider>
 	);
 }
 
